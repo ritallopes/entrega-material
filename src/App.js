@@ -1,17 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Menu from "./components/Menu";
+import Footer from "./components/Footer";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Gerenciador de Entrega de Material
-        </p>
-        
-      </header>
-    </div>
+    <>
+    <header><Menu/></header>
+    <footer><Footer/></footer>
+    </>
   );
 }
 
