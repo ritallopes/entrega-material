@@ -49,15 +49,7 @@ export default function useMaterial(props) {
       `${process.env.REACT_APP_API}/material`,
       requestOptions
     )
-      .then(res => res.json())
-      .then(
-        result => {
-          setMaterial(result);
-        },
-        error => {
-          setError(error);
-        }
-      );
+      .then(res =>  recarregar(res));
   };
   const removerMaterial = id => {
     fetch(
@@ -67,8 +59,6 @@ export default function useMaterial(props) {
   };
 
   const atualizarMaterial = (material, id) => {
-    console.log("atualizar hooks")
-    console.log(id)
     const requestOptions = {
         method: "PUT",
         headers: { 'Content-Type': 'application/json',

@@ -1,9 +1,13 @@
-import { Container, Table, Row } from "react-bootstrap";
+import { Container, Table, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import useMateriais from "../../hooks/materiais-hooks";
 
 import Material from "./Material";
 import MaterialForm from "./MaterialForm";
+
+import {
+  BsFillPlusCircleFill,
+} from "react-icons/bs";
 
 export default function MaterialList() {
   const [current, setCurrent] = useState(null);
@@ -26,13 +30,13 @@ export default function MaterialList() {
   };
 
   const saveChanges = material => {
+    console.log(materiais);
     atualizarMaterial(material, materiais[current]._id);
     setMode("list");
     setCurrent(current);
   };
 
   const cancelChanges = () => {
-    console.log("Cancelar mudanças");
     if (mode === "add") {
       removerMaterial(materiais.length - 1);
     }
@@ -46,7 +50,10 @@ export default function MaterialList() {
   return (
     <Container>
       {mode === "list" && (
-        <Row className="title_page">Materiais Cadastrados no Superlog</Row>
+        <Row className="title_page">
+          <Col xl={8}>Materiais Cadastrados no Superlog</Col>
+          <Col  xl={4}> <BsFillPlusCircleFill onClick={addMaterial}/></Col>
+          </Row>
       )}
       <Row>
         {mode === "list" && (

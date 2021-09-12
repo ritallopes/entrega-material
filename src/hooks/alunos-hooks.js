@@ -33,7 +33,7 @@ export default function useAlunos(props) {
   const adicionarAluno = () => {
     const novoAluno = {
       matricula: "",
-      nome: "Sem nome",
+      nome: "",
       data_nascimento: "",
       responsavel_nome: "",
       contato_responsavel: "",
@@ -52,15 +52,7 @@ export default function useAlunos(props) {
       `${process.env.REACT_APP_API}/aluno`,
       requestOptions
     )
-      .then(res => res.json())
-      .then(
-        result => {
-          setAlunos(result);
-        },
-        error => {
-          setError(error);
-        }
-      );
+      .then(res => recarregar(res));
   };
   const removerAluno = id => {
     fetch(
@@ -74,12 +66,12 @@ export default function useAlunos(props) {
     console.log(id)
     const requestOptions = {
         method: "PUT",
-        headers: { 'Content-Type': 'application/json',
-        'Connection': 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range',
-        'Access-Control-Expose-Headers': 'Content-Length,Content-Range' },
+        headers: { "Content-Type": "application/json",
+        "Connection": "keep-alive",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
+        "Access-Control-Expose-Headers": "Content-Length,Content-Range" },
         body: JSON.stringify(aluno)
     };
     fetch(`${process.env.REACT_APP_API}/aluno/${id}`, requestOptions).then(() => recarregar());

@@ -1,9 +1,13 @@
-import { Container, Table, Row } from "react-bootstrap";
+import { Container, Table, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import useAlunos from "../../hooks/alunos-hooks";
 
 import Aluno from "./Aluno";
 import AlunoForm from "./AlunoForm";
+
+import {
+  BsFillPersonPlusFill,
+} from "react-icons/bs";
 
 export default function AlunoList() {
   const [current, setCurrent] = useState(null);
@@ -46,7 +50,12 @@ export default function AlunoList() {
   return (
     <Container>
       {mode === "list" && (
-        <Row className="title_page">Alunos Cadastrados no Superlog</Row>
+        <Row className="title_page">
+          <Col xl={8}>Alunos Cadastrados no Superlog</Col>
+          <Col xl={4}>
+            <BsFillPersonPlusFill onClick={addAluno} />
+          </Col>
+        </Row>
       )}
       <Row>
         {mode === "list" && (
@@ -82,7 +91,11 @@ export default function AlunoList() {
         )}
 
         {(mode === "edit" || mode === "add") && (
-         <AlunoForm aluno={alunos[current]} onUpdate = {(aluno) => saveChanges(aluno)} onExit = {() => cancelChanges()} />
+          <AlunoForm
+            aluno={alunos[current]}
+            onUpdate={aluno => saveChanges(aluno)}
+            onExit={() => cancelChanges()}
+          />
         )}
       </Row>
     </Container>
