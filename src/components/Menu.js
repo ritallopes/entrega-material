@@ -17,13 +17,13 @@ export default function Menu() {
     <Router>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="/">Entregas Material Escolar</Navbar.Brand>
+          <Navbar.Brand href="/">SUPERLOG.LOG</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="/entrega">Entrega</Nav.Link>
-              <Nav.Link href="/material">Material</Nav.Link>
-              <Nav.Link href="/aluno">Aluno</Nav.Link>
+              <Nav.Link href="/entrega">Entregas</Nav.Link>
+              <Nav.Link href="/material">Materiais</Nav.Link>
+              <Nav.Link href="/aluno">Alunos</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

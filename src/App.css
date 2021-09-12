@@ -35,3 +35,17 @@
 body{
   margin:0;
 }
+
+.title_page{
+  font-weight: bolder;
+  font-size: 1.25rem;
+  margin: 1rem;
+  text-shadow: 1px 2px #4516dd77;
+}
+
+.aluno svg{
+  margin:4px;
+  height: 2em;
+  width: 2em;
+  border: 1px solid;
+}
