@@ -8,9 +8,9 @@ import {
   useParams
 } from "react-router-dom";
 
-import EntregaList from "./EntregaList";
-import AlunoList from "./AlunoList";
-import MaterialList from "./MaterialList";
+import EntregaList from "./Entrega/EntregaList";
+import AlunoList from "./Aluno/AlunoList";
+import MaterialList from "./Material/MaterialList";
 
 export default function Menu() {
   return (

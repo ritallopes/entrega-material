@@ -1,6 +1,6 @@
 import { Container, Table, Row } from "react-bootstrap";
 import { useState } from "react";
-import useAlunos from "../hooks/alunos-hooks";
+import useAlunos from "../../hooks/alunos-hooks";
 
 import Aluno from "./Aluno";
 import AlunoForm from "./AlunoForm";

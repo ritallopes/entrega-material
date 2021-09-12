@@ -1,33 +1,28 @@
 import React, { useState } from "react";
-import { campoRequeridoValidacao } from "./validarForm";
-import { bold } from "ansi-colors";
+import { campoRequeridoValidacao } from "../validarForm";
 
 const validacao = {
-  nome: campoRequeridoValidacao,
-  matricula: campoRequeridoValidacao,
-  data_nascimento: campoRequeridoValidacao,
-  responsavel_nome: campoRequeridoValidacao,
-  contato_responsavel: campoRequeridoValidacao
+  titulo:campoRequeridoValidacao,
+
+  valor:campoRequeridoValidacao
 
 };
 
-export default function AlunoForm({aluno, onExit, onUpdate}) {
-  const [al, setAl] = useState(aluno?aluno:{});
+export default function MaterialForm({material, onExit, onUpdate}) {
+  const [mat, setMat] = useState(material?material:{});
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
   function onChange(e) {
     const { name, value } = e.target;
-    setAl({ ...al, [name]: value });
+    setMat({ ...mat, [name]: value });
     setTouched({ ...touched, [name]: true });
-    console.log("Mudou");
   }
 
   function onBlur(e) {
     const { name, value } = e.target;
 
-    console.log("Apertou!");
     const { [name]: removedError, ...rest } = errors;
     const error = validacao[name] ? validacao[name](value) : null;
     const nameError = touched[name] ? error : null;
@@ -37,10 +32,10 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
 
   function onSubmit(e) {
     e.preventDefault();
-    const aluno_local = al;
+    const material_local = mat;
     // percorre a questão validando todos os itens
-    const validation = Object.keys(aluno_local).reduce((acc, key) => {
-      const error = validacao[key] && validacao[key](aluno_local[key]);
+    const validation = Object.keys(material_local).reduce((acc, key) => {
+      const error = validacao[key] && validacao[key](material_local[key]);
       return {
         errors: {
           ...acc.errors,
@@ -59,16 +54,12 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
     const errorValues = Object.values(validation.errors);
     const touchedValues = Object.values(validation.touched);
     const errorsIsEmpty = errorValues.length === 0;
-    const touchedAll = touchedValues.length === Object.values(aluno_local).length;
+    const touchedAll = touchedValues.length === Object.values(material_local).length;
     const allTrue = touchedValues.every(t => t === true);
 
     // se isso ocorrer, então pode atualizaros dados
     if (errorsIsEmpty && touchedAll && allTrue) {
-        console.log(aluno_local);
-        console.log(al);
-        console.log(aluno);
-
-      onUpdate(aluno_local);
+      onUpdate(material_local);
     }
   }
   
@@ -78,7 +69,7 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
 
 
   const commonProps = {
-    values: al,
+    values: mat,
     errors: errors,
     touched: touched,
     onChange: onChange,
@@ -87,65 +78,47 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
 
   return (
     <form onSubmit={onSubmit}>
-      <h2>Aluno</h2>
+      <h2>Material</h2>
       <Input
-        label="Nome"
-        name="nome"
-        placeholder="Digite o nome do aluno"
+        label="Titulo"
+        name="titulo"
+        placeholder="Digite o titulo do material"
         isRequired={true}
         {...commonProps}
       />
        <Input
-        label="Matricula"
-        name="matricula"
-        placeholder="Digite a matricula do aluno"
-        isRequired={true}
+        label="Autor"
+        name="autor"
+        placeholder="Digite o autor do material"
+        isRequired={false}
         {...commonProps}
       />
       <Input
-        label="Data de Nascimento"
-        name="data_nascimento"
+        label="Valor"
+        name="valor"
+        type="number"
+        placeholder="Digite o valor do material"
+        isRequired={true}
+        {...commonProps}
+      />
+
+      <Input
+        label="Data de Lançamento"
+        name="data_referencia"
         type="date"
-        placeholder="Digite a data de nascimento do aluno"
-        isRequired={true}
-        {...commonProps}
-      />
-       <Input
-        label="Nome do Responsavel"
-        name="responsavel_nome"
-        placeholder="Digite o nome do responsavel pelo aluno"
-        isRequired={true}
-        {...commonProps}
-      />
-       <Input
-        label="Contato do Responsavel"
-        name="contato_responsavel"
-        placeholder="Digite o contato do responsavel pelo aluno"
+        placeholder="Digite a data de referência do material"
         isRequired={false}
         {...commonProps}
       />
       <Input
-        label="Série/Ano"
-        name="serie"
-        placeholder="Digite o ano do aluno"
+        label="Categoria"
+        name="categoria"
+        placeholder="Digite da categoria do material"
         isRequired={false}
         {...commonProps}
       />
-      <Input
-        label="Turma"
-        name="turma"
-        placeholder="Digite a turma do aluno"
-        isRequired={false}
-        {...commonProps}
-      />
-       <Input
-        label="Data de Entrada"
-        name="data_entrada"
-        type="date"
-        placeholder="Digite a data de Entrada do aluno"
-        isRequired={false}
-        {...commonProps}
-      />
+
+       
       <input type="submit" value="Salvar" />
       <button onClick={onCancel}>Cancelar</button>
     </form>
@@ -198,7 +171,8 @@ export function Input({
           {
             input: <input type="text" {...commonProps} />,
             textarea: <textarea rows="4" {...commonProps} />,
-            date: <input type="date" {...commonProps} />
+            date: <input type="date" {...commonProps} />,
+            number: <input type="number" {...commonProps} />
           }[type || 'input']
         }
         <Error touched={touched[name]} error={errors[name]} />
