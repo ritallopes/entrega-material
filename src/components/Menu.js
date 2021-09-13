@@ -27,9 +27,7 @@ export default function Menu() {
         <Route path="/aluno/:id">
           <AlunoProfile />
         </Route>
-        <Route path="/entrega">
-          <Entrega />
-        </Route>
+        
         <Route path="/material">
           <Material />
         </Route>
@@ -38,7 +36,7 @@ export default function Menu() {
         </Route>
 
         <Route path="/">
-          <Dashboard />
+          <Entrega />
         </Route>
       </Switch>
     </Router>

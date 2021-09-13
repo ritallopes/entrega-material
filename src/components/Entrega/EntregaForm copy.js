@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
 import Input from "../Input";
 import useAlunos from "../../hooks/alunos-hooks";
-import { Row, Col } from "react-bootstrap";
 import useMaterial from "../../hooks/materiais-hooks";
+import { Row, Col } from "react-bootstrap";
 
 const validacao = {
   titulo: campoRequeridoValidacao,
@@ -11,22 +11,24 @@ const validacao = {
 };
 
 export default function EntregaForm({ entrega, onExit, onUpdate }) {
-  const [ent, setMat] = useState(entrega ? entrega : {});
+  const [ent, setEnt] = useState(entrega ? entrega : {});
+  console.log(ent)
   const { alunos } = useAlunos([]);
   const { materiais } = useMaterial([]);
-
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
   function onChange(e) {
+    console.log(ent)
     const { name, value } = e.target;
-    setMat({ ...ent, [name]: value });
+    setEnt({ ...ent, [name]: value});
     setTouched({ ...touched, [name]: true });
+
   }
 
   function onBlur(e) {
     const { name, value } = e.target;
-
+    console.log(name + " - " + value);
     const { [name]: removedError, ...rest } = errors;
     const error = validacao[name] ? validacao[name](value) : null;
     const nameError = touched[name] ? error : null;
@@ -37,7 +39,6 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
   function onSubmit(e) {
     e.preventDefault();
     const entrega_local = ent;
-    // percorre a questão validando todos os itens
     const validation = Object.keys(entrega_local).reduce((acc, key) => {
       const error = validacao[key] && validacao[key](entrega_local[key]);
       return {
@@ -61,6 +62,7 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
     const touchedAll =
       touchedValues.length === Object.values(entrega_local).length;
     const allTrue = touchedValues.every(t => t === true);
+
     if (errorsIsEmpty && touchedAll && allTrue) {
       onUpdate(entrega_local);
     }
@@ -71,7 +73,7 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
   }
 
   const commonProps = {
-    values: ent,
+    value: ent,
     errors: errors,
     touched: touched,
     onChange: onChange,
@@ -88,17 +90,15 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
               type="radio"
               id="aluno_id"
               name="aluno_id"
-              value={a._id}
               onChange={onBlur}
               onBlur={onChange}
-              checked={ent.aluno_id == a._id}
             />
             <label for="aluno_id">{a.nome}</label>
           </Col>
         ))}
       </Row>
       <Row>
-        {materiais.map((m, i) => (
+        {materiais.map((m,i) => (
           <Col>
             <input
               type="checkbox"
@@ -108,7 +108,6 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
               onChange={onBlur}
               onBlur={onChange}
               value={m._id}
-              checked={ent.materiais_id.includes(m._id)}
             />
             <label for="materiais_id">{m.titulo}</label>
           </Col>
@@ -116,10 +115,9 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
       </Row>
 
       <Input
-        label="Data"
+        label="Data da entrega"
         name="data"
         type="date"
-        placeholder="Digite a data da entrega"
         isRequired={true}
         {...commonProps}
       />
@@ -127,18 +125,10 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
         label="Forma de Pagamento"
         name="pagamento_metodo"
         placeholder="Digite a forma de pagamento"
-        isRequired={true}
-        {...commonProps}
-      />
-
-      <Input
-        label="Parcelamento"
-        name="pagamento_parcela"
-        type="number"
-        placeholder="Digite a quantidade de parcelas"
         isRequired={false}
         {...commonProps}
       />
+    
 
       <input type="submit" value="Salvar" />
       <button onClick={onCancel}>Cancelar</button>

@@ -21,7 +21,7 @@ export default function Input({
     label, 
     name, 
     placeholder,
-    value,
+    values,
     onChange,
     onBlur,
     isRequired,
@@ -30,7 +30,7 @@ export default function Input({
   }) {
     const commonProps = {
       name,
-      value,
+      value: values[name],
       placeholder,
       onChange,
       onBlur,
