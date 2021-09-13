@@ -90,7 +90,6 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
               value={a._id}
               onChange={onBlur}
               onBlur={onChange}
-              checked={ent.aluno_id == a._id}
             />
             <label for="aluno_id">{a.nome}</label>
           </Col>
@@ -107,7 +106,6 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
               onChange={onBlur}
               onBlur={onChange}
               value={m._id}
-              checked={ent.materiais_id.includes(m._id)}
             />
             <label for="materiais_id">{m.titulo}</label>
           </Col>
