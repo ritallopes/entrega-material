@@ -34,9 +34,12 @@ export default function useAlunos(props) {
     const novoAluno = {
       matricula: "",
       nome: "",
+      email:"",
+      telefone:"",
+      data_entrada:"",
       data_nascimento: "",
       responsavel_nome: "",
-      contato_responsavel: "",
+      responsavel_contato: "",
       turma: "",
       serie: "",
       cursos: []
@@ -63,9 +66,12 @@ export default function useAlunos(props) {
     const novoAluno = {
       matricula: aluno.matricula?aluno.matricula:"",
       nome:aluno.nome?aluno.nome:"",
+      email:aluno.email?aluno.email:"",
+      telefone:aluno.telefone?aluno.telefone:"",
       data_nascimento: aluno.data_nascimento?aluno.data_nascimento:"",
+      data_entrada: aluno.data_entrada?aluno.data_entrada:"",
       responsavel_nome: aluno.responsavel_nome?aluno.responsavel_nome:"",
-      contato_responsavel: aluno.contato_responsavel?aluno.contato_responsavel:"",
+      responsavel_contato: aluno.responsavel_contato?aluno.responsavel_contato:"",
       turma:aluno.turma?aluno.turma:"",
       serie: aluno.serie?aluno.serie:"",
       cursos: aluno.cursos?aluno.cursos:[]

@@ -1,7 +1,8 @@
 import { Container, Table, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import useEntregas from "../../hooks/entregas-hooks";
-
+import useMateriais from "../../hooks/materiais-hooks";
+import useAlunos from "../../hooks/alunos-hooks";
 import Entrega from "./Entrega";
 import EntregaForm from "./EntregaForm";
 
@@ -12,6 +13,8 @@ import {
 export default function EntregaList() {
   const [current, setCurrent] = useState(null);
   const [mode, setMode] = useState("list");
+  const { materiais } = useMateriais([]);
+  const { alunos } = useAlunos([]);
   const { entregas, adicionarEntrega, atualizarEntrega, removerEntrega } = useEntregas(
     []
   );
@@ -74,6 +77,8 @@ export default function EntregaList() {
                   key={`entrega__${i}`}
                   index={i}
                   entrega={entrega}
+                  alunos={alunos}
+                  materiais={materiais}
                   onDelete={index => {
                     deleteEntrega(index);
                   }}

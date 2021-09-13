@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
+import Input from "../Input";
 
 const validacao = {
   nome: campoRequeridoValidacao,
   matricula: campoRequeridoValidacao,
   data_nascimento: campoRequeridoValidacao,
   responsavel_nome: campoRequeridoValidacao,
-  contato_responsavel: campoRequeridoValidacao
-
+  responsavel_contato: campoRequeridoValidacao
 };
 
-export default function AlunoForm({aluno, onExit, onUpdate}) {
-  const [al, setAl] = useState(aluno?aluno:{});
-
+export default function AlunoForm({ aluno, onExit, onUpdate }) {
+  const [al, setAl] = useState(aluno ? aluno : {});
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+
+  const cursos_lista = ["Concentração", "Memória", "Lógica"];
+  
 
   function onChange(e) {
     const { name, value } = e.target;
@@ -58,7 +60,8 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
     const errorValues = Object.values(validation.errors);
     const touchedValues = Object.values(validation.touched);
     const errorsIsEmpty = errorValues.length === 0;
-    const touchedAll = touchedValues.length === Object.values(aluno_local).length;
+    const touchedAll =
+      touchedValues.length === Object.values(aluno_local).length;
     const allTrue = touchedValues.every(t => t === true);
 
     // se isso ocorrer, então pode atualizaros dados
@@ -66,11 +69,10 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
       onUpdate(aluno_local);
     }
   }
-  
+
   function onCancel(e) {
     onExit();
   }
-
 
   const commonProps = {
     values: al,
@@ -90,7 +92,7 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
         isRequired={true}
         {...commonProps}
       />
-       <Input
+      <Input
         label="Matricula"
         name="matricula"
         placeholder="Digite a matricula do aluno"
@@ -105,16 +107,16 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
         isRequired={true}
         {...commonProps}
       />
-       <Input
+      <Input
         label="Nome do Responsavel"
         name="responsavel_nome"
         placeholder="Digite o nome do responsavel pelo aluno"
         isRequired={true}
         {...commonProps}
       />
-       <Input
+      <Input
         label="Contato do Responsavel"
-        name="contato_responsavel"
+        name="responsavel_contato"
         placeholder="Digite o contato do responsavel pelo aluno"
         isRequired={false}
         {...commonProps}
@@ -133,7 +135,7 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
         isRequired={false}
         {...commonProps}
       />
-       <Input
+      <Input
         label="Data de Entrada"
         name="data_entrada"
         type="date"
@@ -141,63 +143,11 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
         isRequired={false}
         {...commonProps}
       />
+     
+
       <input type="submit" value="Salvar" />
       <button onClick={onCancel}>Cancelar</button>
     </form>
   );
 }
 
-
-function Label({ label, isRequired }) {
-  return (
-    <label className="label">
-      {label}
-      {isRequired && <span style={{ color: 'orange', fontWeight:"bold" }}>*</span>}
-    </label>
-  )
-}
-
-function Error({ touched, error }) {
-  return (
-    <div>
-      <div className="error">{touched && error}</div>
-    </div>
-  )
-}
-
-export function Input({
-  type, 
-  label, 
-  name, 
-  placeholder,
-  values,
-  onChange,
-  onBlur,
-  isRequired,
-  touched,
-  errors
-}) {
-  const commonProps = {
-    name,
-    value: values[name],
-    placeholder,
-    onChange,
-    onBlur,
-    className: errors[name] ? 'input-error' : ''
-  }
-  return (
-    <div className="form-item">
-      <Label label={label} isRequired={isRequired} />
-      <div>
-        {
-          {
-            input: <input type="text" {...commonProps} />,
-            textarea: <textarea rows="4" {...commonProps} />,
-            date: <input type="date" {...commonProps} />
-          }[type || 'input']
-        }
-        <Error touched={touched[name]} error={errors[name]} />
-      </div>
-    </div>
-  )
-}

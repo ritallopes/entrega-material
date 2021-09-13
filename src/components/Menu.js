@@ -1,15 +1,9 @@
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Entrega from "./Entrega";
 import Aluno from "./Aluno";
+import AlunoProfile from "./Aluno/AlunoProfile";
 import Material from "./Material";
 import Dashboard from "./Dashboard";
 
@@ -30,7 +24,9 @@ export default function Menu() {
         </Container>
       </Navbar>
       <Switch>
-     
+        <Route path="/aluno/:id">
+          <AlunoProfile />
+        </Route>
         <Route path="/entrega">
           <Entrega />
         </Route>
@@ -40,6 +36,7 @@ export default function Menu() {
         <Route path="/aluno">
           <Aluno />
         </Route>
+
         <Route path="/">
           <Dashboard />
         </Route>

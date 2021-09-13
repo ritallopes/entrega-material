@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
+import Input from "../Input";
 
 const validacao = {
   titulo:campoRequeridoValidacao,
@@ -125,58 +126,3 @@ export default function MaterialForm({material, onExit, onUpdate}) {
   );
 }
 
-
-function Label({ label, isRequired }) {
-  return (
-    <label className="label">
-      {label}
-      {isRequired && <span style={{ color: 'orange', fontWeight:"bold" }}>*</span>}
-    </label>
-  )
-}
-
-function Error({ touched, error }) {
-  return (
-    <div>
-      <div className="error">{touched && error}</div>
-    </div>
-  )
-}
-
-export function Input({
-  type, 
-  label, 
-  name, 
-  placeholder,
-  values,
-  onChange,
-  onBlur,
-  isRequired,
-  touched,
-  errors
-}) {
-  const commonProps = {
-    name,
-    value: values[name],
-    placeholder,
-    onChange,
-    onBlur,
-    className: errors[name] ? 'input-error' : ''
-  }
-  return (
-    <div className="form-item">
-      <Label label={label} isRequired={isRequired} />
-      <div>
-        {
-          {
-            input: <input type="text" {...commonProps} />,
-            textarea: <textarea rows="4" {...commonProps} />,
-            date: <input type="date" {...commonProps} />,
-            number: <input type="number" {...commonProps} />
-          }[type || 'input']
-        }
-        <Error touched={touched[name]} error={errors[name]} />
-      </div>
-    </div>
-  )
-}

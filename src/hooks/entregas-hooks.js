@@ -32,11 +32,11 @@ export default function useEntrega(props) {
 
   const adicionarEntrega = () => {
     const novoEntrega = {
-      titulo: "",
-      autor: "",
-      valor: 0,
-      data_referencia: 0,
-      categoria: ""
+      data: "",
+      materiais_id: [],
+      pagamento_metodo: "",
+      pagamento_parcela: 1,
+      aluno_id: ""
     };
 
     const requestOptions = {
@@ -57,23 +57,25 @@ export default function useEntrega(props) {
 
   const atualizarEntrega = (entrega, id) => {
     const novoEntrega = {
-      titulo: entrega.titulo?entrega.titulo:"",
-      autor: entrega.autor?entrega.autor:0,
-      valor: entrega.valor?entrega.valor:0,
-      data_referencia:entrega.data_referencia?entrega.data_referencia:"",
-      categoria: entrega.categoria?entrega.categoria:""
+      data: entrega.data ? entrega.data : "",
+      materiais_id: entrega.materiais_id ? entrega.materiais_id : [],
+      pagamento_metodo: entrega.pagamento_metodo
+        ? entrega.pagamento_metodo
+        : "",
+      pagamento_parcela: entrega.pagamento_parcela
+        ? entrega.pagamento_parcela
+        : "",
+      aluno_id: entrega.aluno_id ? entrega.aluno_id : ""
     };
     fetch(`${process.env.REACT_APP_API}/entrega/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json"
       },
-      body:JSON.stringify(novoEntrega)
-     
+      body: JSON.stringify(novoEntrega)
     })
       .then(response => {
         recarregar(response);
-        console.log(response);
       })
       .catch(err => {
         console.error(err);

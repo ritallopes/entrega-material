@@ -2,7 +2,7 @@ import { Container, Table, Row, Col } from "react-bootstrap";
 import { useState } from "react";
 import useAlunos from "../../hooks/alunos-hooks";
 
-import Aluno from "./Aluno";
+import Aluno from "./AlunoLine";
 import AlunoForm from "./AlunoForm";
 
 import {
@@ -64,11 +64,8 @@ export default function AlunoList() {
               <tr>
                 <th>Nome</th>
                 <th>Matricula</th>
-                <th>Série</th>
-                <th>Turma</th>
                 <th>Entrada</th>
                 <th>Responsável</th>
-                <th>Contato Responsável</th>
                 <th></th>
               </tr>
             </thead>
