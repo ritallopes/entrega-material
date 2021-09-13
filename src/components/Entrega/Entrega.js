@@ -1,8 +1,14 @@
-import { BsFillTrashFill, BsPencil } from "react-icons/bs";
+import { BsFillTrashFill, BsPencil, BsFillEyeFill } from "react-icons/bs";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
-export default function Material({ entrega, alunos, materiais, index, onEdit, onDelete }) {
-
+export default function Material({
+  entrega,
+  alunos,
+  materiais,
+  index,
+  onEdit,
+  onDelete
+}) {
   const aluno = alunos.filter(aluno => {
     if (aluno._id == entrega.aluno_id) {
       return true;
@@ -26,12 +32,27 @@ export default function Material({ entrega, alunos, materiais, index, onEdit, on
   return (
     <tr key={entrega.id} className="entrega">
       <td>{entrega.data}</td>
-      <td><Link to={`/aluno/${aluno?aluno._id:""}`}>{aluno ? aluno.nome : ""}</Link></td>
+      <td>
+        {aluno ? aluno.nome : ""}
+        <Link to={`/aluno/${aluno ? aluno._id : ""}`}>
+          <BsFillEyeFill style={{width:"1em", height:"1em"}} />
+        </Link>
+      </td>
       <td>{aluno ? aluno.responsavel_nome : ""}</td>
-      <td>{materiais_entregues && materiais_entregues.map(mat => {
-        return (<p>{mat.titulo}<br/></p>)
-      })}</td>
-      <td>{`${entrega.pagamento_parcela?entrega.pagamento_parcela:"1"}x no ${entrega.pagamento_metodo?entrega.pagamento_metodo:""}`}</td>
+      <td>
+        {materiais_entregues &&
+          materiais_entregues.map(mat => {
+            return (
+              <p>
+                {mat.titulo}
+                <br />
+              </p>
+            );
+          })}
+      </td>
+      <td>{`${
+        entrega.pagamento_parcela ? entrega.pagamento_parcela : "1"
+      }x no ${entrega.pagamento_metodo ? entrega.pagamento_metodo : ""}`}</td>
       <td>{`R$ ${valor_total ? valor_total : 0}`}</td>
       <td>
         <BsPencil onClick={() => onEdit(index)} />
