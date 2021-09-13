@@ -42,7 +42,7 @@ export default function Input({
         <div>
           {
             {
-              input: <input type="text" {...commonProps} />,
+              input: <input type="text" className="input-c" {...commonProps} />,
               textarea: <textarea rows="4" {...commonProps} />,
               date: <input type="date" {...commonProps} />,
               number: <input type="number" {...commonProps} />,
