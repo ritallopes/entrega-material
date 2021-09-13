@@ -8,9 +8,10 @@ import {
   useParams
 } from "react-router-dom";
 
-import EntregaList from "./Entrega/EntregaList";
-import AlunoList from "./Aluno/AlunoList";
-import MaterialList from "./Material/MaterialList";
+import Entrega from "./Entrega";
+import Aluno from "./Aluno";
+import Material from "./Material";
+import Dashboard from "./Dashboard";
 
 export default function Menu() {
   return (
@@ -29,14 +30,18 @@ export default function Menu() {
         </Container>
       </Navbar>
       <Switch>
+     
         <Route path="/entrega">
-          <EntregaList />
+          <Entrega />
         </Route>
         <Route path="/material">
-          <MaterialList />
+          <Material />
         </Route>
         <Route path="/aluno">
-          <AlunoList />
+          <Aluno />
+        </Route>
+        <Route path="/">
+          <Dashboard />
         </Route>
       </Switch>
     </Router>

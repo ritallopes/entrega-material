@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
-import { bold } from "ansi-colors";
 
 const validacao = {
   nome: campoRequeridoValidacao,
@@ -64,10 +63,6 @@ export default function AlunoForm({aluno, onExit, onUpdate}) {
 
     // se isso ocorrer, então pode atualizaros dados
     if (errorsIsEmpty && touchedAll && allTrue) {
-        console.log(aluno_local);
-        console.log(al);
-        console.log(aluno);
-
       onUpdate(aluno_local);
     }
   }

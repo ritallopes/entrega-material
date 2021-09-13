@@ -17,7 +17,7 @@ export default function useMaterial(props) {
       );
   }, []);
 
-  const recarregar = (ress) => {
+  const recarregar = ress => {
     fetch(`${process.env.REACT_APP_API}/material`)
       .then(res => res.json())
       .then(
@@ -32,12 +32,12 @@ export default function useMaterial(props) {
 
   const adicionarMaterial = () => {
     const novoMaterial = {
-      titulo:"",
-      autor:"",
-      valor:0,
-      data_referencia:0,
-      categoria:""
-    }
+      titulo: "",
+      autor: "",
+      valor: 0,
+      data_referencia: 0,
+      categoria: ""
+    };
 
     const requestOptions = {
       method: "POST",
@@ -45,31 +45,39 @@ export default function useMaterial(props) {
       body: JSON.stringify(novoMaterial)
     };
 
-    fetch(
-      `${process.env.REACT_APP_API}/material`,
-      requestOptions
-    )
-      .then(res =>  recarregar(res));
+    fetch(`${process.env.REACT_APP_API}/material`, requestOptions).then(res =>
+      recarregar(res)
+    );
   };
   const removerMaterial = id => {
-    fetch(
-      `${process.env.REACT_APP_API}/material/${id}`,
-      { method: "DELETE" }
-    ).then(res => recarregar(res));
+    fetch(`${process.env.REACT_APP_API}/material/${id}`, {
+      method: "DELETE"
+    }).then(res => recarregar(res));
   };
 
   const atualizarMaterial = (material, id) => {
-    const requestOptions = {
-        method: "PUT",
-        headers: { 'Content-Type': 'application/json',
-        'Connection': 'keep-alive',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Headers': 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range',
-        'Access-Control-Expose-Headers': 'Content-Length,Content-Range' },
-        body: JSON.stringify(material)
+    const novoMaterial = {
+      titulo: material.titulo?material.titulo:"",
+      autor: material.autor?material.autor:0,
+      valor: material.valor?material.valor:0,
+      data_referencia:material.data_referencia?material.data_referencia:"",
+      categoria: material.categoria?material.categoria:""
     };
-    fetch(`${process.env.REACT_APP_API}/material/${id}`, requestOptions).then(() => recarregar());
+    fetch(`${process.env.REACT_APP_API}/material/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(novoMaterial)
+     
+    })
+      .then(response => {
+        recarregar(response);
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   return { materiais, adicionarMaterial, atualizarMaterial, removerMaterial };

@@ -17,7 +17,7 @@ export default function useAlunos(props) {
       );
   }, []);
 
-  const recarregar = (ress) => {
+  const recarregar = ress => {
     fetch(`${process.env.REACT_APP_API}/aluno`)
       .then(res => res.json())
       .then(
@@ -48,34 +48,44 @@ export default function useAlunos(props) {
       body: JSON.stringify(novoAluno)
     };
 
-    fetch(
-      `${process.env.REACT_APP_API}/aluno`,
-      requestOptions
-    )
-      .then(res => recarregar(res));
+    fetch(`${process.env.REACT_APP_API}/aluno`, requestOptions).then(res =>
+      recarregar(res)
+    );
   };
+
   const removerAluno = id => {
-    fetch(
-      `${process.env.REACT_APP_API}/aluno/${id}`,
-      { method: "DELETE" }
-    ).then(res => recarregar(res));
+    fetch(`${process.env.REACT_APP_API}/aluno/${id}`, {
+      method: "DELETE"
+    }).then(res => recarregar(res));
   };
 
   const atualizarAluno = (aluno, id) => {
-    console.log("atualizar hooks")
-    console.log(id)
-    const requestOptions = {
-        method: "PUT",
-        headers: { "Content-Type": "application/json",
-        "Connection": "keep-alive",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range",
-        "Access-Control-Expose-Headers": "Content-Length,Content-Range" },
-        body: JSON.stringify(aluno)
+    const novoAluno = {
+      matricula: aluno.matricula?aluno.matricula:"",
+      nome:aluno.nome?aluno.nome:"",
+      data_nascimento: aluno.data_nascimento?aluno.data_nascimento:"",
+      responsavel_nome: aluno.responsavel_nome?aluno.responsavel_nome:"",
+      contato_responsavel: aluno.contato_responsavel?aluno.contato_responsavel:"",
+      turma:aluno.turma?aluno.turma:"",
+      serie: aluno.serie?aluno.serie:"",
+      cursos: aluno.cursos?aluno.cursos:[]
     };
-    fetch(`${process.env.REACT_APP_API}/aluno/${id}`, requestOptions).then(() => recarregar());
-  };
 
+    fetch(`${process.env.REACT_APP_API}/aluno/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify(novoAluno)
+     
+    })
+      .then(response => {
+        recarregar(response);
+        console.log(response);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
   return { alunos, adicionarAluno, atualizarAluno, removerAluno };
 }
