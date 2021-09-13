@@ -51,7 +51,7 @@ export default function AlunoList() {
     <Container>
       {mode === "list" && (
         <Row className="title_page">
-          <Col xl={8}>Alunos Cadastrados no Superlog</Col>
+          <Col xl={8} className="text-center">Alunos Cadastrados no Superlog</Col>
           <Col xl={4}>
             <BsFillPersonPlusFill onClick={addAluno} />
           </Col>

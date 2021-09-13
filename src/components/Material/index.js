@@ -51,7 +51,7 @@ export default function MaterialList() {
     <Container>
       {mode === "list" && (
         <Row className="title_page">
-          <Col xl={8}>Materiais Cadastrados no Superlog</Col>
+          <Col xl={8} className="text-center">Materiais Cadastrados no Superlog</Col>
           <Col  xl={4}> <BsFillPlusCircleFill onClick={addMaterial}/></Col>
           </Row>
       )}

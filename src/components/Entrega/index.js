@@ -53,7 +53,7 @@ export default function EntregaList() {
     <Container>
       {mode === "list" && (
         <Row className="title_page">
-          <Col xl={8}>Entregas Realizadas pelo Superlog</Col>
+          <Col xl={8} className="text-center">Entregas Realizadas pelo Superlog</Col>
           <Col  xl={4}> <BsFillPlusCircleFill onClick={addEntrega}/></Col>
           </Row>
       )}
