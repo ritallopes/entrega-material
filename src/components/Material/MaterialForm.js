@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
 import Input from "../Input";
+import {  Button } from "react-bootstrap";
+
 
 const validacao = {
   titulo:campoRequeridoValidacao,
@@ -120,8 +122,8 @@ export default function MaterialForm({material, onExit, onUpdate}) {
       />
 
        
-      <input type="submit" value="Salvar" />
-      <button onClick={onCancel}>Cancelar</button>
+<Button as="input" type="submit" value="Submit" />{' '}
+      <Button onClick={onCancel} variant="danger">Cancelar</Button>
     </form>
   );
 }

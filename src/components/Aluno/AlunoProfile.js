@@ -25,10 +25,7 @@ export default function AlunoProfile () {
                 <Col xl={3}><strong>Matricula: </strong></Col>
                 <Col xl={9}> {aluno?aluno.matricula:""}</Col>
             </Row>
-            <Row>
-                <Col xl={3}><strong>Escola: </strong></Col>
-                <Col xl={9}> {aluno?aluno.escola:""}</Col>
-            </Row>
+            
             <Row>
                 <Col xl={3}><strong>Ano: </strong></Col>
                 <Col xl={9}> {aluno?aluno.serie:""}</Col>

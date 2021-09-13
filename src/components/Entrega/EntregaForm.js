@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { campoRequeridoValidacao } from "../validarForm";
 import Input from "../Input";
 import useAlunos from "../../hooks/alunos-hooks";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import useMaterial from "../../hooks/materiais-hooks";
 
 const validacao = {
@@ -136,9 +136,8 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
         isRequired={false}
         {...commonProps}
       />
-
-      <input type="submit" value="Salvar" />
-      <button onClick={onCancel}>Cancelar</button>
+      <Button as="input" type="submit" value="Submit" />{' '}
+      <Button onClick={onCancel} variant="danger">Cancelar</Button>
     </form>
   );
 }
