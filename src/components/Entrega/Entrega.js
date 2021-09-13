@@ -21,7 +21,7 @@ export default function Material({ entrega, alunos, materiais, index, onEdit, on
 
   const reducer = (p, c) => p + c;
   const valor_total = materiais
-    .map(material => material.valor)
+    .map(material => parseInt(material.valor))
     .reduce(reducer, 0);
   return (
     <tr key={entrega.id} className="entrega">
