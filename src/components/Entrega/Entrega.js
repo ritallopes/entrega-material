@@ -31,7 +31,7 @@ export default function Material({ entrega, alunos, materiais, index, onEdit, on
       <td>{materiais_entregues && materiais_entregues.map(mat => {
         return (<p>{mat.titulo}<br/></p>)
       })}</td>
-      <td>{`${entrega.pagamento_parcela?entrega.pagamento.parcela:"1"}x no ${entrega.pagamento?entrega.pagamento.metodo:""}`}</td>
+      <td>{`${entrega.pagamento_parcela?entrega.pagamento_parcela:"1"}x no ${entrega.pagamento_metodo?entrega.pagamento_metodo:""}`}</td>
       <td>{`R$ ${valor_total ? valor_total : 0}`}</td>
       <td>
         <BsPencil onClick={() => onEdit(index)} />
