@@ -37,7 +37,6 @@ export default function EntregaForm({ entrega, onExit, onUpdate }) {
   function onSubmit(e) {
     e.preventDefault();
     const entrega_local = ent;
-    // percorre a questão validando todos os itens
     const validation = Object.keys(entrega_local).reduce((acc, key) => {
       const error = validacao[key] && validacao[key](entrega_local[key]);
       return {
